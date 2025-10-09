@@ -1,37 +1,37 @@
 #include <iostream>
-#include <cstdlib>
-#include <ctime>
-
-// Declaracoes das funcoes (em header)
-#include "../include/function.h"
+#include <cstdlib>   // para rand() e srand()
+#include <ctime>     // para time()
+#include <cmath>     // para abs()
+using namespace std;
 
 int main() {
-	std::srand(std::time(nullptr));
+    srand(static_cast<unsigned int>(time(0))); // inicializa o gerador de números aleatórios
+    int numeroSecreto = rand() % 100 + 1; // número aleatório entre 1 e 100
+    int tentativa;
+    int tentativas = 0;
 
-	while (true) {
-		std::cout << "\n=== Menu de Jogos ===\n";
-		std::cout << "1) Adivinhar o numero\n";
-		std::cout << "2) Pedra, Papel, Tesoura\n";
-		std::cout << "3) Par ou Impar\n";
-		std::cout << "4) Sair\n";
-		std::cout << "Escolha uma opcao: ";
+    cout << "=== Jogo Quente ou Frio ===\n";
+    cout << "Tente adivinhar o número entre 1 e 100!\n";
 
-		int opc;
-		if (!(std::cin >> opc)) {
-			std::cin.clear();
-			std::cin.ignore(10000, '\n');
-			std::cout << "Entrada invalida. Tente novamente.\n";
-			continue;
-		}
+    do {
+        cout << "Digite sua tentativa: ";
+        cin >> tentativa;
+        tentativas++;
 
-		switch (opc) {
-			case 1: playAdivinha(); break;
-			case 2: playRPS(); break;
-			case 3: playParImpar(); break;
-			case 4: std::cout << "Saindo...\n"; return 0;
-			default: std::cout << "Opcao invalida.\n"; break;
-		}
-	}
-	return 0;
+        int diferenca = abs(numeroSecreto - tentativa);
+
+        if (tentativa == numeroSecreto) {
+            cout << "Parabéns! Você acertou em " << tentativas << " tentativas.\n";
+            break;
+        } else if (diferenca <= 5) {
+            cout << "Quente!\n";
+        } else if (diferenca <= 15) {
+            cout << "Morno.\n";
+        } else {
+            cout << "Frio.\n";
+        }
+    } while (true);
+
+    return 0;
 }
-
+// Jogo "Quente ou Frio" em C++
