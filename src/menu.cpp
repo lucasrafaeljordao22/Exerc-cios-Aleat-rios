@@ -1,37 +1,41 @@
 #include <iostream>
-#include <cstdlib>   // para rand() e srand()
-#include <ctime>     // para time()
-#include <cmath>     // para abs()
+#include <string>
+#include <algorithm> // para shuffle
+#include <ctime>     // para time
+#include <vector>
 using namespace std;
 
 int main() {
-    srand(static_cast<unsigned int>(time(0))); // inicializa o gerador de números aleatórios
-    int numeroSecreto = rand() % 100 + 1; // número aleatório entre 1 e 100
-    int tentativa;
+    srand(static_cast<unsigned int>(time(0))); // inicializa random
+
+    vector<string> palavras = {"computador", "programacao", "casa", "carro", "gato", "livro"};
+    
+    // escolhe uma palavra aleatória
+    string palavraOriginal = palavras[rand() % palavras.size()];
+    string palavraEmbaralhada = palavraOriginal;
+
+    // embaralha a palavra
+    random_shuffle(palavraEmbaralhada.begin(), palavraEmbaralhada.end());
+
+    string tentativa;
     int tentativas = 0;
 
-    cout << "=== Jogo Quente ou Frio ===\n";
-    cout << "Tente adivinhar o número entre 1 e 100!\n";
+    cout << "=== Jogo Inverte Letras ===\n";
+    cout << "Tente adivinhar a palavra!\n";
+    cout << "Palavra embaralhada: " << palavraEmbaralhada << endl;
 
     do {
-        cout << "Digite sua tentativa: ";
+        cout << "Sua tentativa: ";
         cin >> tentativa;
         tentativas++;
 
-        int diferenca = abs(numeroSecreto - tentativa);
-
-        if (tentativa == numeroSecreto) {
+        if (tentativa == palavraOriginal) {
             cout << "Parabéns! Você acertou em " << tentativas << " tentativas.\n";
             break;
-        } else if (diferenca <= 5) {
-            cout << "Quente!\n";
-        } else if (diferenca <= 15) {
-            cout << "Morno.\n";
         } else {
-            cout << "Frio.\n";
+            cout << "Errado! Tente novamente.\n";
         }
     } while (true);
 
     return 0;
 }
-// Jogo "Quente ou Frio" em C++
