@@ -1,12 +1,9 @@
-
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
 
-// Declaracoes das funcoes de outros arquivos
-void playAdivinha();
-void playRPS();
-void playParImpar();
+// Declaracoes das funcoes (em header)
+#include "../include/function.h"
 
 int main() {
 	std::srand(std::time(nullptr));
